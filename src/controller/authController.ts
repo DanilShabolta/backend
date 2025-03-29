@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { authService } from "../services/authService";
 
-const register = async (req: Request, res: Response) => {
+const signup = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
     const user = await authService.registerUser(username, password);
@@ -25,6 +25,6 @@ const login = async (req: Request, res: Response) => {
 };
 
 export const authController = {
-  register,
+  signup,
   login,
 };
