@@ -1,12 +1,18 @@
 import { userModel } from "../model/userModel";
 import jwt from "jsonwebtoken";
 
-const registerUser = async (username: string, password: string) => {
+const registerUser = async (
+  username: string,
+  password: string,
+  firstname: string,
+  lastname: string,
+  role: string
+) => {
   const existingUser = await userModel.findOne({ username });
   if (existingUser) {
     throw new Error("User already exist");
   }
-  const user = new userModel({ username, password });
+  const user = new userModel({ username, password, firstname, lastname, role });
   await user.save();
   return user;
 };

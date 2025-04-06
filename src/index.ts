@@ -7,7 +7,7 @@ import { userRoutes } from "./routes/userRoutes";
 import { authRoutes } from "./routes/authRoutes";
 
 const app = express();
-const port = 11112;
+const port = 11113;
 
 const start = async () => {
   try {
