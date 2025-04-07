@@ -2,10 +2,10 @@ import { CallbackError, model, Model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
 interface IUser {
-  firstname: string;
-  lastname: string;
   login: string;
   password: string;
+  firstname: string;
+  lastname: string;
   role: string;
 }
 
@@ -16,14 +16,6 @@ interface IUserMethods {
 type userModel = Model<IUser, object, IUserMethods>;
 
 const userSchema = new Schema<IUser, userModel, IUserMethods>({
-  firstname: {
-    type: String,
-    required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
-  },
   login: {
     type: String,
     required: true,
@@ -33,7 +25,15 @@ const userSchema = new Schema<IUser, userModel, IUserMethods>({
     type: String,
     required: true,
   },
-  role: { type: String, required: true, enum: ["student", "teacher"] },
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
+  role: { type: String, required: false, enum: ["student", "teacher"] },
 });
 
 userSchema.pre("save", async function (next) {

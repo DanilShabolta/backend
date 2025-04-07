@@ -1,18 +1,20 @@
 import { userModel } from "../model/userModel";
 import jwt from "jsonwebtoken";
 
+const JWT_SECRET = process.env.JWT_SECRET || "sikret";
+
 const registerUser = async (
-  username: string,
+  login: string,
   password: string,
   firstname: string,
   lastname: string,
   role: string
 ) => {
-  const existingUser = await userModel.findOne({ username });
+  const existingUser = await userModel.findOne({ login });
   if (existingUser) {
     throw new Error("User already exist");
   }
-  const user = new userModel({ username, password, firstname, lastname, role });
+  const user = new userModel({ login, password, role, firstname, lastname });
   await user.save();
   return user;
 };
@@ -30,7 +32,7 @@ const loginUser = async (login: string, password: string) => {
 };
 
 const generateToken = (userId: string) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: "1h" });
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: "1h" });
 };
 
 export const authService = {

@@ -3,13 +3,13 @@ import { authService } from "../services/authService";
 
 const signup = async (req: Request, res: Response) => {
   try {
-    const { username, password, role, firstname, lastname } = req.body;
+    const { login, password, firstname, lastname, role } = req.body;
     const user = await authService.registerUser(
-      username,
+      login,
       password,
-      role,
       firstname,
-      lastname
+      lastname,
+      role
     );
     const token = authService.generateToken(user._id.toString());
     res.status(201).json({ token });
@@ -21,8 +21,8 @@ const signup = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
-    const user = await authService.loginUser(username, password);
+    const { login, password } = req.body;
+    const user = await authService.loginUser(login, password);
     const token = authService.generateToken(user._id.toString());
     res.status(200).json({ token });
   } catch (error) {
