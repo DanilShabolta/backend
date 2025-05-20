@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+declare module "express" {
+  interface Request {
+    Id?: string;
+  }
+}
+
 const connectDB = async () => {
   try {
     await mongoose.connect(

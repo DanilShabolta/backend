@@ -3,7 +3,7 @@ import { userModel } from "../model/userModel";
 
 const getProfile = async (req: Request, res: Response): Promise<void> => {
   try {
-    const user = await userModel.findById(req.userId).select("username role");
+    const user = await userModel.findById(req.Id).select("username role");
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
@@ -19,7 +19,7 @@ const getProfile = async (req: Request, res: Response): Promise<void> => {
 
 const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = req.userId;
+    const userId = req.Id;
 
     if (!userId) {
       res.status(400).json({ message: "User ID is required" });

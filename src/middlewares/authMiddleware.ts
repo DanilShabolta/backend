@@ -1,12 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-declare module "express" {
-  interface Request {
-    userId?: string;
-  }
-}
-
 export const authenticateJWT = async (
   req: Request,
   res: Response,
@@ -20,10 +14,10 @@ export const authenticateJWT = async (
 
   try {
     const decoded = jwt.verify(token!, process.env.JWT_SECRET!) as {
-      userId: string;
+      Id: string;
     };
 
-    req.userId = decoded.userId;
+    req.Id = decoded.Id;
 
     next();
   } catch {
